@@ -10,5 +10,6 @@ const accountRouter = express.Router()
 const accountController = require(path.join(__dirname, '../controllers/accountController'))
 //处理请求
 accountRouter.get('/register', accountController.getRegisterPage)
+accountRouter.post('/register',accountController.register)
 //导出
 module.exports = accountRouter;

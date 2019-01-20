@@ -41,23 +41,17 @@
     </div>
 </body>
 <script>
-    function register() {
-        //1.获取到用户输入的信息
-        const username = $("#usernameId").val()
-        const password = $.md5($("#passwordId").val() + "DZH!@#love")
-
-        //2.使用$.post发送post请求
-        jQuery.post('/account/register', {
-            username,
-            password
-        }, function (data, textStatus, jqXHR) {
-            if (data.status != 0) { //失败
-                alert(data.message)
-            } else { //成功
-                location.href = '/account/login'
-            }
-        })
-    }
+   function register(){
+       const username= $('#usernameId').val()
+       const password = $.md5($("#passwordId").val()+"!@&_1314")
+       $.post('/account/register',{username,password},function(result){
+           if (result.status !=0){
+               alert(result.message)
+           }else{
+               location.href = '/account/login'
+           }
+       })
+   }
 </script>
 
 </html>

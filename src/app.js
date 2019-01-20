@@ -1,10 +1,16 @@
 //导包
 const express = require('express')
 const path = require('path')
-
+var bodyParser = require('body-parser')
 
 //创建app
 const app = express()
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+ 
+// parse application/json
+app.use(bodyParser.json())
 
 app.use(express.static(path.join(__dirname, 'public')))
 
@@ -20,7 +26,5 @@ app.listen(4399, '127.0.0.1', err => {
     if (err) {
         console.log(err)
     }
-
-
     console.log("start ok")
 })
