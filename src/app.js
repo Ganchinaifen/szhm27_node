@@ -2,6 +2,7 @@
 const express = require('express')
 const path = require('path')
 var bodyParser = require('body-parser')
+var session = require('express-session')
 
 //创建app
 const app = express()
@@ -12,19 +13,24 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-app.use(express.static(path.join(__dirname, 'public')))
+// Use the session middleware
+app.use(session({ secret: 'keyboard cat',resave:false,saveUninitialized:false, cookie: { maxAge: 600000 }}))
 
-//导入路由对象
-const accountRouter = require(path.join(__dirname, "./routers/accountRouter"))
+//设置静态资源根目录
+app.use(express.static(path.join(__dirname,"public")))
 
-app.use('/account', accountRouter)
-
-
+//导入路由对象，路由中间件写在最后
+/**
+const obj = require(path.join(__dirname,"routers/accountRouter.js"))
+ */
+const accountRouter = require(path.join(__dirname,"routers/accountRouter.js"))
+app.use('/account',accountRouter)
 
 //启动
-app.listen(4399, '127.0.0.1', err => {
-    if (err) {
+app.listen(3000,'127.0.0.1',err=>{
+    if(err){
         console.log(err)
     }
+
     console.log("start ok")
 })
